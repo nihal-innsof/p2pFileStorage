@@ -1,7 +1,16 @@
 package main
 
-import "fmt"
+import (
+	"log"
+
+	"nihal/p2pFileStorage/p2p"
+)
 
 func main() {
-	fmt.Println("Hello world")
+	tr := p2p.NewTCPTransport(":8080")
+	if err := tr.ListenAndAccept(); err != nil {
+		log.Fatal(err)
+	}
+
+	select {}
 }
