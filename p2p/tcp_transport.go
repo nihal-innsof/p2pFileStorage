@@ -79,9 +79,9 @@ func (t *TCPTransport) handleConn(conn net.Conn) {
 	}
 
 	// Read loop
-	msg := &Message{}
+	rpc := &RPC{}
 	for {
-		if err := t.Decoder.Decode(conn, msg); err != nil {
+		if err := t.Decoder.Decode(conn, rpc); err != nil {
 			if err == io.EOF {
 				break
 			}
@@ -89,6 +89,8 @@ func (t *TCPTransport) handleConn(conn net.Conn) {
 			continue
 		}
 
-		fmt.Printf("message: %+v\n", msg)
+		rpc.From = conn.RemoteAddr()
+
+		fmt.Printf("message: %+v\n", rpc)
 	}
 }
