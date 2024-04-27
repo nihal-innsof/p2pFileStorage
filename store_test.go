@@ -7,11 +7,18 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func TestPathTransformFunc(t *testing.T) {}
+func TestPathTransformFunc(t *testing.T) {
+	key := "meowmeow"
+	pathName := CASPathTransformFunc(key)
+	expectedPathName := "b6ccb/4ece5/454dc/ae517/78b3e/239eb"
+	if pathName != expectedPathName {
+		t.Errorf("Expected %s, got %s", expectedPathName, pathName)
+	}
+}
 
 func TestStore(t *testing.T) {
 	storeOpts := StoreOpts{
-		PathTransformFunc: DefaultPathTransformFunc,
+		PathTransformFunc: CASPathTransformFunc,
 	}
 	store := NewStore(storeOpts)
 
